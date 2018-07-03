@@ -19,6 +19,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     if ([[APIManager shared] isAuthorized]) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:@"didLogout" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+            NSLog(@"Logout notification received");
+            // TODO: Load and show the login view controller
+            
+        }];
+        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UINavigationController *navigationController = [storyboard instantiateViewControllerWithIdentifier:@"TweetsNavigationController"];
         self.window.rootViewController = navigationController;
@@ -26,6 +32,8 @@
     
     return YES;
 }
+
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -53,6 +61,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
 
 
 @end
