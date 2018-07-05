@@ -12,8 +12,13 @@
 #import "Tweet.h"
 #import <UIImageView+AFNetworking.h>
 #import "ComposeViewController.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
+#import "DetailsViewController.h"
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate>
+
+- (IBAction)logoutAction:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -21,11 +26,13 @@
 
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+
+
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
-
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *composeTweetButton;
-
-
 @end
 
 @implementation TimelineViewController
@@ -35,7 +42,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 145;
+//    self.tableView.rowHeight = 
     
     [self fetchTweets];
     
@@ -54,7 +61,7 @@
         if (tweets) {
             
             // Creeting the array of the tweets
-            self.tweets = tweets;
+            self.tweets = (NSMutableArray*)tweets;
             [self.tableView reloadData];
             
             
@@ -107,10 +114,37 @@
 
 //  In a storyboard-based application, you will often want to do a little preparation before navigation
 
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UINavigationController *navigationController = [segue destinationViewController];
-    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-    composeController.delegate = self;
+    
+    if ([segue.identifier  isEqual: @"composeTweet"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    }
+    
+    if ([segue.identifier  isEqual: @"detailsController"]) {
+        
+        UITableView *tappedCell = sender;
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Tweet *tweet = self.tweets[indexPath.row];
+        
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        
+        detailsViewController.tweet = tweet;
+
+    }
+    
 }
 
+- (IBAction)logoutAction:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    
+    [[APIManager shared] logout];
+}
 @end

@@ -30,9 +30,6 @@
     
 }
 
-//- (UIBarButtonItem *)tweetCloseButton {
-//    [self dismissViewControllerAnimated:true completion:nil];
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

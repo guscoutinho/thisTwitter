@@ -14,6 +14,7 @@
 // MARK: Properties
 @property (nonatomic, strong) NSString *idStr; // For favoriting, retweeting & replying
 @property (strong, nonatomic) NSString *text; // Text content of tweet
+@property (nonatomic) int replyCount; // Update favorite count label
 @property (nonatomic) int favoriteCount; // Update favorite count label
 @property (nonatomic) BOOL favorited; // Configure favorite button
 @property (nonatomic) int retweetCount; // Update favorite count label
