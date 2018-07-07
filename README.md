@@ -47,8 +47,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. I would enjoy discussing more auto-layout pattern with my fellow pod-mates and classmates.
-2.
+1. I would enjoy discussing more auto-layout patterns with my fellow pod-mates and classmates.
+2.  I would also enjoy doing more wireframes before starting coding the assignments as we are doing with our own projects
 
 ## Video Walkthrough
 
