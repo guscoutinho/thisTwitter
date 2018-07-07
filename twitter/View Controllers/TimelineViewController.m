@@ -15,6 +15,8 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "DetailsViewController.h"
+#import "DateTools.h"
+#import "ProfileViewController.h"
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate>
 
@@ -40,9 +42,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[APIManager shared] goToProfile:^(User *user, NSError *error) {
+        if (user) {
+            self.user = user;
+        }
+        else {
+            self.user = nil;
+        }
+    }];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-//    self.tableView.rowHeight = 
     
     [self fetchTweets];
     
@@ -65,14 +75,6 @@
             [self.tableView reloadData];
             
             
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (Tweet *tweet in tweets) {
-                NSURL *text = tweet.text;
-                NSLog(@"%@", text);
-                
-            }
-        } else {
-            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
     }];
@@ -102,10 +104,27 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Deselect the row which was tapped
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 -(void)didTweet:(Tweet *)tweet {
     // Goes to the top instead of bottom as addObject
     [self.tweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
+}
+
+
+- (IBAction)logoutAction:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
+    
+    [[APIManager shared] logout];
 }
 
 
@@ -118,9 +137,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier  isEqual: @"composeTweet"]) {
+        
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
+        
+        composeController.user = self.user;
+        
     }
     
     if ([segue.identifier  isEqual: @"detailsController"]) {
@@ -136,15 +159,14 @@
 
     }
     
+    if ([segue.identifier  isEqual: @"profileViewController"]) {
+        
+        ProfileViewController *profileViewController = [segue destinationViewController];
+        
+        profileViewController.user = self.user;
+
+    }
+    
 }
 
-- (IBAction)logoutAction:(id)sender {
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    appDelegate.window.rootViewController = loginViewController;
-    
-    [[APIManager shared] logout];
-}
 @end

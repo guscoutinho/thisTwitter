@@ -12,6 +12,8 @@
 		5449F90720EAD45300C8494D /* TweetCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5449F90620EAD45300C8494D /* TweetCellTableViewCell.m */; };
 		5449F90D20EC14E200C8494D /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5449F90C20EC14E200C8494D /* ComposeViewController.m */; };
 		5449F91020EEB45600C8494D /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5449F90F20EEB45600C8494D /* DetailsViewController.m */; };
+		5449F91320EF1A7300C8494D /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5449F91220EF1A7300C8494D /* ProfileViewController.m */; };
+		5449F91620EFD90300C8494D /* ProfileCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5449F91520EFD90300C8494D /* ProfileCellTableViewCell.m */; };
 		557D7B17F5D2B5715B705AA9 /* libPods-twitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6142D6F34C1AE98EE4951 /* libPods-twitter.a */; };
 		6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD278D920BC4B950085BC29 /* AppDelegate.m */; };
 		6AD278E020BC4B950085BC29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AD278DE20BC4B950085BC29 /* Main.storyboard */; };
@@ -37,6 +39,10 @@
 		5449F90C20EC14E200C8494D /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		5449F90E20EEB45600C8494D /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		5449F90F20EEB45600C8494D /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		5449F91120EF1A7300C8494D /* ProfileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		5449F91220EF1A7300C8494D /* ProfileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		5449F91420EFD90300C8494D /* ProfileCellTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileCellTableViewCell.h; sourceTree = "<group>"; };
+		5449F91520EFD90300C8494D /* ProfileCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileCellTableViewCell.m; sourceTree = "<group>"; };
 		6AD278D520BC4B950085BC29 /* twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD278D820BC4B950085BC29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6AD278D920BC4B950085BC29 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -139,6 +145,8 @@
 			children = (
 				5449F90520EAD45300C8494D /* TweetCellTableViewCell.h */,
 				5449F90620EAD45300C8494D /* TweetCellTableViewCell.m */,
+				5449F91420EFD90300C8494D /* ProfileCellTableViewCell.h */,
+				5449F91520EFD90300C8494D /* ProfileCellTableViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +162,8 @@
 				6AD2790820BCC04D0085BC29 /* TimelineViewController.m */,
 				5449F90B20EC14E200C8494D /* ComposeViewController.h */,
 				5449F90C20EC14E200C8494D /* ComposeViewController.m */,
+				5449F91120EF1A7300C8494D /* ProfileViewController.h */,
+				5449F91220EF1A7300C8494D /* ProfileViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -279,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5449F90720EAD45300C8494D /* TweetCellTableViewCell.m in Sources */,
+				5449F91620EFD90300C8494D /* ProfileCellTableViewCell.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
 				5449F91020EEB45600C8494D /* DetailsViewController.m in Sources */,
 				5449F90020EAC60C00C8494D /* User.m in Sources */,
@@ -288,6 +299,7 @@
 				6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */,
 				6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */,
 				6AD278F620BCB68B0085BC29 /* APIManager.m in Sources */,
+				5449F91320EF1A7300C8494D /* ProfileViewController.m in Sources */,
 				6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

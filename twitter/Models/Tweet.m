@@ -8,6 +8,7 @@
 
 #import "Tweet.h"
 #import "User.h"
+#import "DateTools.h"
 
 @implementation Tweet
 
@@ -43,12 +44,19 @@
         formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
         // Convert String to Date
         NSDate *date = [formatter dateFromString:createdAtOriginalString];
-        // Configure output format
-        formatter.dateStyle = NSDateFormatterShortStyle;
-        formatter.timeStyle = NSDateFormatterNoStyle;
-        // Convert Date to String
-        self.createdAtString = [formatter stringFromDate:date];
         
+        NSTimeInterval secondsBetween = [[NSDate date] timeIntervalSinceDate:date];
+        
+        if (secondsBetween <= 28800) {
+            self.createdAtString = date.shortTimeAgoSinceNow;
+        }
+        else {
+            // Configure output format
+            formatter.dateStyle = NSDateFormatterShortStyle;
+            formatter.timeStyle = NSDateFormatterNoStyle;
+            // Convert Date to String
+            self.createdAtString = [formatter stringFromDate:date];
+        }
     }
     return self;
 }
@@ -61,6 +69,7 @@
     }
     return tweets;
 }
+
 
 @end
 

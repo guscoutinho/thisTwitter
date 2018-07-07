@@ -24,18 +24,27 @@
 
     self.tweetUser.text = tweet.user.name;
     self.tweetText.text = tweet.text;
-    self.tweetScreenName.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     self.tweetDate.text = tweet.createdAtString;
+    self.tweetScreenName.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     self.tweetReplyCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     self.tweetFavoriteCount.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     self.tweetRetweetCount.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
     
+    self.tweetProfilePicture.layer.cornerRadius = self.tweetProfilePicture.frame.size.height/2;
     [self.tweetProfilePicture setImageWithURL:tweet.user.profileImage];
     [self.tweetUser sizeToFit];
-
     
-
+    if (self.tweet.retweeted == YES) {
+        [_retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+    }
+    else {
+        [_retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+    }
+    
+    
 }
+
+
 
 - (void) reloadData {
     
@@ -50,16 +59,14 @@
     // Configure the view for the selected state
 }
 
-
-//-(IBAction) toggleUIButtonImage:(id)sender{
-
-
 - (IBAction)didTapRetweet:(id)sender {
     
     if (self.tweet.retweeted == YES) {
         self.tweet.retweeted = NO;
         self.tweet.retweetCount -= 1;
-        [_retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+        [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon"] forState:UIControlStateNormal];
+        
+        [self reloadData];
 
         
         [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
@@ -76,7 +83,8 @@
     else {
         self.tweet.retweeted = YES;
         self.tweet.retweetCount += 1;
-        [_retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+        [self.retweetButton setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateNormal];
+        [self reloadData];
 
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
@@ -96,7 +104,8 @@
     if (self.tweet.favorited == YES) {
         self.tweet.favorited = NO;
         self.tweet.favoriteCount -= 1;
-        [_favoriteButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
+        [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon"] forState:UIControlStateNormal];
+        [self reloadData];
 
         
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
@@ -113,8 +122,8 @@
     else {
         self.tweet.favorited = YES;
         self.tweet.favoriteCount += 1;
-        [_favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
-
+        [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
+        [self reloadData];
         
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){

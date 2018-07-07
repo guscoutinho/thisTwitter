@@ -8,6 +8,7 @@
 
 #import "APIManager.h"
 #import "Tweet.h"
+#import "User.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
 static NSString * const consumerKey = @"lpzDyKjv4MfBH7Pj1V0SZoQ6c"; // Enter your consumer key here
@@ -123,16 +124,33 @@ static NSString * const consumerSecret = @"k7yqH2tqr2JR0L4uPyVEaTA4B45zljOib26yt
     
 }
 
-
-+ (void)logout {
-    // 1. Clear current user
-//    User.current = nil;
-    
-    // TODO: 2. Deauthorize OAuth tokens
-    
-    // 3. Post logout notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didLogout" object:nil];
+- (void)goToProfile:(void (^)(User *user, NSError *error))completion{
+    NSString *urlString = @"https://api.twitter.com/1.1/account/verify_credentials.json";
+    NSDictionary *parameters = @{};
+    [self GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable userDictionary) {
+        User *user = [[User alloc] initWithDictionary:userDictionary];
+        completion(user, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
     
 }
+
+- (void)getProfileTweets:(void(^)(NSArray *tweets, NSError *error))completion {
+    
+    // Create a GET Request
+    [self GET:@"https://api.twitter.com/1.1/statuses/user_timeline.json"
+   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+       // Success
+       NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+       completion(tweets, nil);
+   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       // There was a problem
+       completion(nil, error);
+   }];
+}
+
+
+
 
 @end

@@ -14,6 +14,8 @@
 @interface DetailsViewController : UIViewController
 
 @property (strong, nonatomic) Tweet *tweet;
+@property (strong, nonatomic) User *user;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *detailsImageView;
 @property (weak, nonatomic) IBOutlet UILabel *detailsUser;
@@ -26,7 +28,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *detailsMessageButton;
 @property (weak, nonatomic) IBOutlet UIButton *detailsRetweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *detailsFavoriteButton;
-- (IBAction)detailsFavoriteAction:(id)sender;
-- (IBAction)detailsRetweetAction:(id)sender;
+
+- (IBAction)detailsRetweet:(id)sender;
+
+- (IBAction)detailsFavorite:(id)sender;
+
 
 @end

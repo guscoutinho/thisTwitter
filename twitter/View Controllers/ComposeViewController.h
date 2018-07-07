@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
+#import "User.h"
 
 @protocol ComposeViewControllerDelegate
 
@@ -16,6 +17,9 @@
 @end
 
 @interface ComposeViewController : UIViewController
+
+@property (strong, nonatomic) Tweet *tweet;
+@property (strong, nonatomic) User *user;
 
 @property (nonatomic, weak) id<ComposeViewControllerDelegate> delegate;
 
