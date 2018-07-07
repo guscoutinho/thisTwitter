@@ -26,7 +26,7 @@
         }];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UINavigationController *navigationController = [storyboard instantiateViewControllerWithIdentifier:@"TweetsNavigationController"];
+        UINavigationController *navigationController = [storyboard instantiateViewControllerWithIdentifier:@"TweetsTabBarController"];
         self.window.rootViewController = navigationController;
     }
     

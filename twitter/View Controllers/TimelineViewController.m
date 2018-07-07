@@ -159,14 +159,7 @@
 
     }
     
-    if ([segue.identifier  isEqual: @"profileViewController"]) {
-        
-        ProfileViewController *profileViewController = [segue destinationViewController];
-        
-        profileViewController.user = self.user;
 
-    }
-    
 }
 
 @end

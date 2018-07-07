@@ -33,6 +33,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    if (!self.user) {
+        [[APIManager shared] goToProfile:^(User *user, NSError *error) {
+            if (user) {
+                self.user = user;
+                [self refreshView];
+            }
+            else {
+                NSLog(@"dont work");
+            }
+        }];
+    }
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
@@ -40,6 +53,15 @@
     
     [self fetchProfileTweets];
     
+
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)refreshView {
     self.profileUser.text = self.user.name;
     self.profileScreenname.text = [NSString stringWithFormat:@"@%@", self.user.screenName];
     self.profileDescription.text = self.user.profileDescription;
@@ -48,18 +70,9 @@
     self.profileFollowingCount.text = [NSString stringWithFormat:@"%d", self.user.profileFollowing];
     
     self.profilePictureView.layer.cornerRadius = self.profilePictureView.frame.size.height/2;
-
+    
     [self.profilePictureView setImageWithURL:self.user.profileImage];
     [self.profileHeaderView setImageWithURL:self.user.profileBanner];
-    
-
-
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)fetchProfileTweets {
